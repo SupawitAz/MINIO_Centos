@@ -277,7 +277,7 @@ Each disk used 212.5 MiB
 
 **We can see that data will spilt between 4 disks**
 
-### Set up MINIO by enable storage class (2 time disk usage)
+### Set up MINIO by enable storage class (2 times disk usage)
 
 > Check empty storage 
 
@@ -315,4 +315,4 @@ Each disk used 390.5 MiB
 
 356 + 34.5 =  390.5 MiB
 
-**We can see that data will spilt between 4 disks with 2 time usage**
+**We can see that data will spilt between 4 disks with 2 times usage**
