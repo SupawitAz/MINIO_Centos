@@ -330,12 +330,21 @@ Each disk used 34.4 MiB at start
 
 > Enable storage class Reduced Redundancy by set to EC:1
 ```
+# set Standard 
+mc admin config set minio_9001 storage_class standard=EC:2
+
 # set Reduced Redundancy (rcc)
 mc admin config set minio_9001 storage_class rrs=EC:1
 
 # restart minio server
 mc admin service restart minio_9001
 ```
+
+> js script that upload data by use rcc (EC:1)
+```
+Not today ;)
+```
+
 
 > Upload data 1 files 512 MiB
 
