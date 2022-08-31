@@ -326,7 +326,7 @@ Each disk used 390.5 MiB
 
 Each disk used 34.4 MiB at start 
 
-![image](https://user-images.githubusercontent.com/112536860/187642072-92a2990a-f443-4566-9159-d30a87255a1a.png)
+![image](https://user-images.githubusercontent.com/112536860/187672872-f7902684-4e31-4f23-b43f-6e5363c562c0.png)
 
 > Enable storage class Reduced Redundancy by set to EC:1
 ```
