@@ -279,7 +279,7 @@ Each disk used 212.5 MiB
 
 **We can see that data will spilt between 4 disks**
 
-### Set up MINIO by enable storage class (2 times disk usage)
+### Set up MINIO by enable storage class Standard EC:2 (2 times disk usage)
 
 > Check empty storage 
 
@@ -312,10 +312,46 @@ Each disk used 390.5 MiB
 
 (much multiple by 2 because EC:2)
 
-(712*2)/4 = 356 MiB
+(712/4)*2 = 356 MiB
 
 **sum with data init 34.4 Mib from each data**
 
 356 + 34.5 =  390.5 MiB
+
+**We can see that data will spilt between 4 disks with 2 times usage**
+
+### Set up MINIO by enable storage class Reduced Redundancy EC:1
+
+> Check empty storage 
+
+Each disk used 34.4 MiB at start 
+
+![image](https://user-images.githubusercontent.com/112536860/187642072-92a2990a-f443-4566-9159-d30a87255a1a.png)
+
+> Enable storage class Reduced Redundancy by set to EC:1
+```
+# set Reduced Redundancy (rcc)
+mc admin config set minio_9001 storage_class rrs=EC:1
+
+# restart minio server
+mc admin service restart minio_9001
+```
+
+> Upload data 1 files 512 MiB
+
+![image](https://user-images.githubusercontent.com/112536860/187672075-41b6758f-6bb8-4d4c-97bc-28ce589746f0.png)
+![image](https://user-images.githubusercontent.com/112536860/187671474-2083fcb1-b1cc-4ac9-9cff-755a5909d03b.png)
+
+**Calculate**
+
+Each disk used 205.1 MiB
+
+**data usage for each disk**
+
+(512/4)*(4/3) = 170.67 MiB
+
+**sum with data init 34.4 Mib from each data**
+
+170.67 + 34.5 =  205.17 MiB
 
 **We can see that data will spilt between 4 disks with 2 times usage**
