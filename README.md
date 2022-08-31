@@ -261,7 +261,9 @@ mc admin service restart minio_9001
 
 > Upload data 3 files 100 + 100 + 512 = 712 MiB
 
+
 ![image](https://user-images.githubusercontent.com/112536860/187642950-59dfe96b-d11b-4c96-9c3d-b63416be1a30.png)
+![image](https://user-images.githubusercontent.com/112536860/187662835-836d29b1-7fa6-4571-83ae-f5a29c1ef66d.png)
 
 **Calculate**
 
@@ -300,6 +302,7 @@ mc admin service restart minio_9001
 > Upload data 3 files 100 + 100 + 512 = 712 MiB
 
 ![image](https://user-images.githubusercontent.com/112536860/187645443-8fc49773-51e8-4a48-bd29-bbf2aa219e7b.png)
+![image](https://user-images.githubusercontent.com/112536860/187663062-29938cb2-5a75-43e7-bcb7-456adc3492dd.png)
 
 **Calculate**
 
