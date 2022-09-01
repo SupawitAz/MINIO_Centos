@@ -398,3 +398,138 @@ Each disk used 271.9 MiB
 237.4 + 34.5 =  271.9 MiB
 
 **We can see that data will spilt between 4 disks with 2 times usage**
+
+## Umount disk for test disks durability
+
+> Set up standard EC:2
+
+In theory, disks can't loss more than 2 drives.
+
+![image](https://user-images.githubusercontent.com/112536860/187852608-09545fcb-38e8-47c4-ba71-26364b5adc50.png)
+
+> create 3 file
+
+```
+echo hello_1 > hello.txt
+echo hi > hi.txt
+echo hello_woeld > world.txt
+```
+
+> Let start to umount 1 disk => /mnt/data1
+
+```
+umount  /dev/vg_data1/data1
+```
+![image](https://user-images.githubusercontent.com/112536860/187865278-50396d05-787d-4039-9ee1-18dd373ac1ae.png)
+
+now disk "mnt/data1" is missing
+
+> Test download object gorm bucket
+
+This script will download obj name 'hello.txt', 'hi.txt', 'world.txt' from bucket name 'test3'
+
+```
+var Minio = require('minio')
+
+var minioClient = new Minio.Client({
+    endPoint: '192.168.24.21',
+    port: 9001,
+    useSSL: false,
+    accessKey: 'minioadmin',
+    secretKey: 'minioadmin'
+});
+
+
+var size = 0
+minioClient.fGetObject('test3', 'hello.txt', '/home/supawit/js/test_dir/hello.txt', function(err) {
+  if (err) {
+    return console.log(err)
+  }
+  console.log('success')
+})
+
+var size = 0
+minioClient.fGetObject('test3', 'hi.txt', '/home/supawit/js/test_dir/hi.txt', function(err) {
+  if (err) {
+    return console.log(err)
+  }
+  console.log('success')
+})
+
+var size = 0
+minioClient.fGetObject('test3', 'world.txt', '/home/supawit/js/test_dir/world.txt', function(err) {
+  if (err) {
+    return console.log(err)
+  }
+  console.log('success')
+})
+
+```
+
+After run this script, client still communicate with server.
+
+![image](https://user-images.githubusercontent.com/112536860/187866595-f3e605f7-9307-49ab-a6b7-8a0c676e0ac8.png)
+
+> Umount 2 disks => /mnt/data1 and /mnt/data2
+
+```
+umount  /dev/vg_data2/data2
+```
+![image](https://user-images.githubusercontent.com/112536860/187869599-15f3ceb2-d45c-4a82-aaf2-6560575ccdae.png)
+
+> Test download object form bucket after down 2 disks
+
+![image](https://user-images.githubusercontent.com/112536860/187870122-2c195a5b-d7b8-49e5-a34f-db738e80dcb7.png)
+![image](https://user-images.githubusercontent.com/112536860/187893119-2aa35d5f-9188-4c36-9f80-de1345b2e8eb.png)
+
+Client still communicate with server. Can read but can't write.
+
+
+> Umount 3 disks => /mnt/data1, /mnt/data2 and /mnt/data3
+
+```
+umount  /dev/vg_data3/data3
+```
+
+minio server down
+
+![image](https://user-images.githubusercontent.com/112536860/187870601-7aef05c3-fe48-4f10-a4d5-a149fe6ae706.png)
+
+> Test download object form bucket after down 3 disks
+
+![image](https://user-images.githubusercontent.com/112536860/187871141-f63d5774-2a31-4751-b246-3533d9f3fed3.png)
+
+Client can’t download obj from server 
+
+> Conclusion about dubility of disks by used Storage Class standard EC:2 with 4 disks
+
+The theory say that server can loss disks at most N disks when set EC:N. 
+
+In this test the server set standard=EC:2. So server will die when loss number of disks more than 2.
+When umount disks to 3 disks. server immediately down. Client can't do anything to server.
+
+![image](https://user-images.githubusercontent.com/112536860/187874938-2e145843-b33b-4a5f-a3a3-348d7186cbbe.png)
+
+> Mount disks to the start
+
+When mount disk /mnt/data1, /mnt/data2 and /mnt/data3. Minio server back to active adn data still correct. Maybe the disk still has old data.
+
+> Delete data in mount
+
+delete data from /mnt/data1, /mnt/data2 and /mnt/data3 (at the same time) 
+
+```
+# command below will force delete all data in directory
+rm -rfv /mnt/data1 /mnt/data2 /mnt/data3
+```
+
+In this case MINIO server can't recover data.
+
+
+
+
+
+
+
+
+
