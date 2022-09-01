@@ -341,6 +341,10 @@ mc admin service restart minio_9001
 ```
 
 > js script that upload data by use rcc (EC:1)
+
+In metadata must specific 'X-Amz-Storage-Class': 'REDUCED_REDUNDANCY' for use Reduced Redundancy in this object
+
+ref: https://docs.min.io/minio/baremetal/concepts/erasure-coding.html
 ```
 var Minio = require('minio')
 
