@@ -344,7 +344,7 @@ mc admin service restart minio_9001
 
 In metadata must specific 'X-Amz-Storage-Class': 'REDUCED_REDUNDANCY' for use Reduced Redundancy in this object
 
-ref: https://docs.min.io/minio/baremetal/concepts/erasure-coding.html
+ref: https://blog.min.io/configurable-data-and-parity-drives-on-minio-server/
 ```
 var Minio = require('minio')
 
@@ -380,21 +380,21 @@ var fileStat = Fs.stat(file, function(err, stats) {
 ```
 
 
-> Upload data 1 files 512 MiB
+> Upload data 3 files 100 + 100 + 512 = 712 MiB
 
-![image](https://user-images.githubusercontent.com/112536860/187672075-41b6758f-6bb8-4d4c-97bc-28ce589746f0.png)
-![image](https://user-images.githubusercontent.com/112536860/187671474-2083fcb1-b1cc-4ac9-9cff-755a5909d03b.png)
+![image](https://user-images.githubusercontent.com/112536860/187828546-3a7406c0-5ab0-40d0-9083-7ccce27f7a74.png)
+![image](https://user-images.githubusercontent.com/112536860/187829260-ff6df567-615e-4eda-8e35-6f4af32c6f86.png)
 
 **Calculate**
 
-Each disk used 205.1 MiB
+Each disk used 271.9 MiB
 
 **data usage for each disk**
 
-(512/4)*(4/3) = 170.67 MiB
+(712/4)*(4/3) = 237.4 MiB
 
 **sum with data init 34.4 Mib from each data**
 
-170.67 + 34.5 =  205.17 MiB
+237.4 + 34.5 =  271.9 MiB
 
 **We can see that data will spilt between 4 disks with 2 times usage**
