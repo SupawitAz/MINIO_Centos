@@ -523,9 +523,15 @@ delete data from /mnt/data1, /mnt/data2 and /mnt/data3 (at the same time)
 rm -rfv /mnt/data1 /mnt/data2 /mnt/data3
 ```
 
-In this case MINIO server can't recover data.
+In this case MINIO server can't recover data. Server now broken.
 
+### Conclusion
 
+| Case  | after umount and delete data | after mount empty disk |
+| ------------------------------------- | ------------- | --------------------|
+| umount 1 disk and delete mount data   | Client can still get and write object | Server copy data to empty disk 
+| umount 2 disks and delete mount data  | Client can still get object but can't write object | Server copy data to empty disks, and can write now
+| umount 3 disks and delete mount data  | Client can't get or write object | Server nerver copy data to empty disk. completly die 
 
 
 
