@@ -342,7 +342,37 @@ mc admin service restart minio_9001
 
 > js script that upload data by use rcc (EC:1)
 ```
-Not today ;)
+var Minio = require('minio')
+
+var minioClient = new Minio.Client({
+    endPoint: '192.168.24.21',
+    port: 9001,
+    useSSL: false,
+    accessKey: 'minioadmin',
+    secretKey: 'minioadmin'
+});
+
+
+var Fs = require('fs')
+var file = '/home/supawit/js/100MB.zip'
+var fileStream = Fs.createReadStream(file)
+var fileStat = Fs.stat(file, function(err, stats) {
+  if (err) {
+    return console.log(err)
+  }
+
+  var metaData = {
+      'ContentType': 'application/octet-stream',
+      'X-Amz-Storage-Class': 'REDUCED_REDUNDANCY'
+  }
+  minioClient.putObject('test3', '100MB.zip', fileStream, stats.size, metaData, function(err, objInfo) {
+      if(err) {
+          return console.log(err) // err should be null
+      }
+   console.log("Success", objInfo)
+  })
+
+})
 ```
 
 
