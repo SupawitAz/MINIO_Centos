@@ -480,6 +480,7 @@ umount  /dev/vg_data2/data2
 > Test download object form bucket after down 2 disks
 
 ![image](https://user-images.githubusercontent.com/112536860/187870122-2c195a5b-d7b8-49e5-a34f-db738e80dcb7.png)
+![image](https://user-images.githubusercontent.com/112536860/187893119-2aa35d5f-9188-4c36-9f80-de1345b2e8eb.png)
 
 Client still communicate with server. Can read but can't write.
 
