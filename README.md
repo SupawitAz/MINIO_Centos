@@ -398,3 +398,82 @@ Each disk used 271.9 MiB
 237.4 + 34.5 =  271.9 MiB
 
 **We can see that data will spilt between 4 disks with 2 times usage**
+
+## Umount disk for test disks durability
+
+> Set up standard EC:2
+
+In theory, disks can't loss more than 2 drives.
+
+![image](https://user-images.githubusercontent.com/112536860/187852608-09545fcb-38e8-47c4-ba71-26364b5adc50.png)
+
+> create 3 file
+
+```
+echo hello_1 > hello.txt
+echo hi > hi.txt
+echo hello_woeld > world.txt
+```
+
+> Let start to umount 1 disk => /mnt/data1
+
+```
+umount  /dev/vg_data1/data1
+```
+![image](https://user-images.githubusercontent.com/112536860/187865278-50396d05-787d-4039-9ee1-18dd373ac1ae.png)
+
+now disk "mnt/data1" is missing
+
+> Test download object gorm bucket
+
+This script will download obj name 'hello.txt', 'hi.txt', 'world.txt' from bucket name 'test3'
+
+```
+var Minio = require('minio')
+
+var minioClient = new Minio.Client({
+    endPoint: '192.168.24.21',
+    port: 9001,
+    useSSL: false,
+    accessKey: 'minioadmin',
+    secretKey: 'minioadmin'
+});
+
+
+var size = 0
+minioClient.fGetObject('test3', 'hello.txt', '/home/supawit/js/test_dir/hello.txt', function(err) {
+  if (err) {
+    return console.log(err)
+  }
+  console.log('success')
+})
+
+var size = 0
+minioClient.fGetObject('test3', 'hi.txt', '/home/supawit/js/test_dir/hi.txt', function(err) {
+  if (err) {
+    return console.log(err)
+  }
+  console.log('success')
+})
+
+var size = 0
+minioClient.fGetObject('test3', 'world.txt', '/home/supawit/js/test_dir/world.txt', function(err) {
+  if (err) {
+    return console.log(err)
+  }
+  console.log('success')
+})
+
+```
+
+After run this script, client still communicate with server.
+
+![image](https://user-images.githubusercontent.com/112536860/187866595-f3e605f7-9307-49ab-a6b7-8a0c676e0ac8.png)
+
+> umount 2 disks => /mnt/data1 and /mnt/data2
+
+```
+umount  /dev/vg_data2/data2
+```
+
+
