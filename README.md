@@ -537,7 +537,7 @@ In this case MINIO server can't recover data. Server now broken.
 
 This case will test by upload object either RSS and Standard class then remove data at mount path 
 
-| Case  | after delete data | after mount empty disk |
+| Case  | after delete data | 
 | ------------------------- | ---------------------- | 
 | delete 1 mount data  | can read and write RRS data | 
 | delete 2 mount data  | loss RRS data but standard EC:2 are alive | 
