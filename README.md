@@ -543,7 +543,9 @@ This case will test by upload object either RSS and Standard class then remove d
 | delete 2 mount data  | loss RRS data but standard EC:2 are alive | 
 | delete 3 mount data  | loss EC:2 data | 
 
+## Question ???
 
+When unmount and delete 2 disk then mount again. RSS data did not loss. But tf not unmount disk then force delete data at mount path, RSS will loss.  
 
 
 
