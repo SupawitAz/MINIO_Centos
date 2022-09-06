@@ -535,7 +535,7 @@ In this case MINIO server can't recover data. Server now broken.
 
 ## Test disks durability storage class RRS EC:1, Standard EC:2
 
-This case will test by upload object either RSS and Standard class then remove data at mount path 
+This case will test by upload object either RRS and Standard class then remove data at mount path 
 
 | Case  | delete data at mount path  |
 | ------------------------- | ---------------------- | 
