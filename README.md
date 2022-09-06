@@ -527,21 +527,21 @@ In this case MINIO server can't recover data. Server now broken.
 
 ### Conclusion
 
-| Case  | after umount and delete data | after mount empty disk |
+| Case  | after umount | after mount disk and delete data at mount path  |
 | ------------------------------------- | ------------- | --------------------|
 | umount 1 disk and delete mount data   | Client can still get and write object | Server copy data to empty disk |
-| umount 2 disks and delete mount data  | Client can still get object but can't write object | Server copy data to empty disks, and can write now |
+| umount 2 disks and delete mount data  | Client can still get object but can't write object | Server copy data to empty disks |
 | umount 3 disks and delete mount data  | Client can't get or write object | Server nerver copy data to empty disk. completly die |
 
 ## Test disks durability storage class RRS EC:1, Standard EC:2
 
 This case will test by upload object either RSS and Standard class then remove data at mount path 
 
-| Case  | after delete data | 
+| Case  | delete data at mount path  |
 | ------------------------- | ---------------------- | 
-| delete 1 mount data  | can read and write RRS data | 
-| delete 2 mount data  | loss RRS data but standard EC:2 are alive | 
-| delete 3 mount data  | loss EC:2 data | 
+| delete 1 mount data  | can read and write RRS data |  
+| delete 2 mount data  | loss RRS data but standard EC:2 are alive |  
+| delete 3 mount data  | loss all data |  
 
 ## Question ???
 
