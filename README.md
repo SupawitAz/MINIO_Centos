@@ -233,7 +233,7 @@ minioClient.listBuckets(function(err, buckets) {
 ```
 
 
-======
+___
 
 
 ## Test erasure code theory
