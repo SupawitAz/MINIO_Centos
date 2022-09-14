@@ -232,6 +232,8 @@ minioClient.listBuckets(function(err, buckets) {
 })
 ```
 
+
+=====================================================================================================================================================
 ## Test erasure code theory
 
 Now MINIO have 4 disks if we want to set erasure code we must set parity to 2 (minimum parity is 2).
